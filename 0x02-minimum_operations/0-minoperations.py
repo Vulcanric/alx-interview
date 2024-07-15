@@ -41,12 +41,3 @@ def minOperations(n):
 
     # Add all prime factors of the number, n to get the minimum operation
     return round(factor_1 + minOperations(factor_2))
-
-
-if __name__ == "__main__":
-    n = 4
-    print(f'Minimum number of operations to result in {n} characters: {minOperations(n)}')
-    n = 12
-    print(f'Minimum number of operations to result in {n} characters: {minOperations(n)}')
-    n = 17078
-    print(f'Minimum number of operations to result in {n} characters: {minOperations(n)}')
