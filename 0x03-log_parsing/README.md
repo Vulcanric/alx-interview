@@ -30,7 +30,9 @@ Write a script that reads `stdin` line by line and computes metrics:<br>
         - format: `<status code>: <count>`
         - status codes is printed in ascending order
 ## Solution
-```py main.py
+<center><p style="background-color: magenta;color: black"><b>0-stat.py</b></p></center>
+
+```py
 if __name__ == "__main__":
     main()
 ```
