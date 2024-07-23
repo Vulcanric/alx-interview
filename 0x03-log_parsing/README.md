@@ -1,6 +1,6 @@
 # Log Parsing
 ## Description:
-For this project, I applied my knowledge of Python programming, focusing on parsing and processing data streams in real time. This project involves reading from standard input (stdin), handling data in specific format, and performing calculations based on the input data.
+In this project, I applied my knowledge of Python programming, focusing on parsing and processing data streams in real time. This project involves reading from standard input (stdin), handling data in specific format, and performing calculations based on the input data.
 Here's a list of concepts I used in implementing this algorithm.
 ## Task:
 Write a script that reads `stdin` line by line and computes metrics:<br>
