@@ -11,7 +11,7 @@ if __name__ == "__main__":
     """
     Log format: <IPv4> - [<date>] "<http-request>" <status-code> <file-size>
     """
-    status_count: Dict = defaultdict(int)
+    status_count = defaultdict(int)
     total_size = 0
 
     # Retrieving individual data points using regex patterns
