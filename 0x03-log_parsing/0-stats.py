@@ -1,29 +1,53 @@
 #!/usr/bin/python3
 """ Log Parsing """
 import sys
-import shlex
+import signal
+import re
 from collections import defaultdict
+from typing import Dict
 
-total_size = 0
-status_counts = defaultdict(int)
 
-for i, line in enumerate(sys.stdin):
+if __name__ == "__main__":
+    """
+    Log format: <IPv4> - [<date>] "<http-request>" <status-code> <file-size>
+    """
+    status_count: Dict = defaultdict(int)
+    total_size = 0
+
+    # Retrieving individual data points using regex patterns
+    ip_r = r'(?P<ip>\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})'
+    date_r, req_r = r'\[(?P<dt>.+)\]', r'(?P<req>.+)'
+    stat_r, size_r = r'(?P<stat>\d{3})', r'(?P<sz>\d+)'
+
+    # General line pattern involves all the above patterns
+    rformat = f'{ip_r} - {date_r} {req_r} {stat_r} {size_r}'
+
     try:
-        parts = shlex.split(line)
-        if len(parts) != 7:
-            continue
-        ip, date, request = parts[0], parts[2], parts[3]
-        status, size = parts[4], parts[5]
-        if not (status.isdigit() and size.isdigit()):
-            continue
-        total_size += int(size)
-        status_counts[int(status)] += 1
-        if (i + 1) % 10 == 0:
-            print(f"File size: {total_size}")
-            for status in sorted(status_counts.keys()):
-                print(f"{status}: {status_counts[status]}")
-    except KeyboardInterrupt:
+        for i, line in enumerate(sys.stdin, start=1):
+            res = re.match(rformat, line)
+
+            if not res:  # Line doesn't match format
+                continue  # Skip the line
+
+            ip, date, request, status, size = \
+                res.group('ip'),\
+                res.group('dt'),\
+                res.group('req'),\
+                res.group('stat'),\
+                res.group('sz')
+
+            if not (status.isdigit() and size.isdigit()):
+                continue
+
+            status_count[int(status)] += 1
+            total_size += int(size)
+
+            if i % 10 == 0:
+                print(f"File size: {total_size}")
+                for status in sorted(status_count.keys()):
+                    print(f"{status}: {status_count[status]}")
+
+    except KeyboardInterrupt:  # ctrl + c event
         print(f"File size: {total_size}")
-        for status in sorted(status_counts.keys()):
-            print(f"{status}: {status_counts[status]}")
-        break
+        for status in sorted(status_count.keys()):
+            print(f"{status}: {status_count[status]}")
