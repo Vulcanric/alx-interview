@@ -48,12 +48,11 @@ if __name__ == "__main__":
     total_size = 0
 
     # Retrieving individual data points using regex patterns
-    ip_r = r'(?P<ip>\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})'
-    date_r, req_r = r'\[(?P<dt>.+)\]', r'(?P<req>.+)'
-    stat_r, size_r = r'(?P<stat>\d{3})', r'(?P<sz>\d+)'
+    ip_r, date_r, req_r = r'(?P<ip>\S+)', r'\[(?P<dt>.+)\]', r'(?P<req>.+)'
+    stat_r, size_r = r'(?P<stat>\w+)', r'(?P<sz>\d+)'
 
     # General line pattern involves all the above patterns
-    rformat = f'{ip_r} - {date_r} {req_r} {stat_r} {size_r}'
+    rformat = f'{ip_r} ?- ?{date_r} {req_r} {stat_r} {size_r}'
 
     try:
         for i, line in enumerate(sys.stdin, start=1):
@@ -69,18 +68,22 @@ if __name__ == "__main__":
                 res.group('stat'),\
                 res.group('sz')
 
-            if not (status.isdigit() and size.isdigit()):
-                continue
-
-            status_count[int(status)] += 1
+            if status.isdigit():
+                status_count[int(status)] += 1
             total_size += int(size)
 
+            # Case 1: After 10 lines
             if i % 10 == 0:
                 print(f"File size: {total_size}")
                 for status in sorted(status_count.keys()):
                     print(f"{status}: {status_count[status]}")
 
-    except KeyboardInterrupt:  # ctrl + c event
+        # Case 2: When done reading
+        print(f"File size: {total_size}")
+        for status in sorted(status_count.keys()):
+            print(f"{status}: {status_count[status]}")
+
+    except KeyboardInterrupt:  # Case 3: ctrl + c event
         print(f"File size: {total_size}")
         for status in sorted(status_count.keys()):
             print(f"{status}: {status_count[status]}")
