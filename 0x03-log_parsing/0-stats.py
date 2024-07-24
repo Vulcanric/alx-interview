@@ -37,7 +37,6 @@ if __name__ == "__main__":
 
             if status.isdigit():
                 status_count[int(status)] += 1
-            print(status, size)
             total_size += int(size)
 
             # Case 1: After 10 lines
