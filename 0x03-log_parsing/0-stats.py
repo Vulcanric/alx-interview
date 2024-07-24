@@ -42,12 +42,18 @@ if __name__ == "__main__":
             status_count[int(status)] += 1
             total_size += int(size)
 
+            # Case 1: After 10 lines
             if i % 10 == 0:
                 print(f"File size: {total_size}")
                 for status in sorted(status_count.keys()):
                     print(f"{status}: {status_count[status]}")
 
-    except KeyboardInterrupt:  # ctrl + c event
+        # Case 2: After done reading
+        print(f"File size: {total_size}")
+        for status in sorted(status_count.keys()):
+            print(f"{status}: {status_count[status]}")
+
+    except KeyboardInterrupt:  # Case 3: ctrl + c event
         print(f"File size: {total_size}")
         for status in sorted(status_count.keys()):
             print(f"{status}: {status_count[status]}")
