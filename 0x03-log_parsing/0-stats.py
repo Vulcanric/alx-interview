@@ -15,12 +15,11 @@ if __name__ == "__main__":
     total_size = 0
 
     # Retrieving individual data points using regex patterns
-    ip_r = r'(?P<ip>\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})'
-    date_r, req_r = r'\[(?P<dt>.+)\]', r'(?P<req>.+)'
+    ip_r, date_r, req_r = r'(?P<ip>\S+)', r'\[(?P<dt>.+)\]', r'(?P<req>.+)'
     stat_r, size_r = r'(?P<stat>\d{3})', r'(?P<sz>\d+)'
 
     # General line pattern involves all the above patterns
-    rformat = f'{ip_r} - {date_r} {req_r} {stat_r} {size_r}'
+    rformat = f'{ip_r} ?- ?{date_r} {req_r} {stat_r} {size_r}'
 
     try:
         for i, line in enumerate(sys.stdin, start=1):
