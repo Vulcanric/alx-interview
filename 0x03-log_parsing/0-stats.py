@@ -16,7 +16,7 @@ if __name__ == "__main__":
 
     # Retrieving individual data points using regex patterns
     ip_r, date_r, req_r = r'(?P<ip>\S+)', r'\[(?P<dt>.+)\]', r'(?P<req>.+)'
-    stat_r, size_r = r'(?P<stat>\d{3})', r'(?P<sz>\d+)'
+    stat_r, size_r = r'(?P<stat>\w+)', r'(?P<sz>\d+)'
 
     # General line pattern involves all the above patterns
     rformat = f'{ip_r} ?- ?{date_r} {req_r} {stat_r} {size_r}'
@@ -35,10 +35,9 @@ if __name__ == "__main__":
                 res.group('stat'),\
                 res.group('sz')
 
-            if not (status.isdigit() and size.isdigit()):
-                continue
-
-            status_count[int(status)] += 1
+            if status.isdigit():
+                status_count[int(status)] += 1
+            print(status, size)
             total_size += int(size)
 
             # Case 1: After 10 lines
