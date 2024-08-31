@@ -30,7 +30,7 @@ def island_perimeter(grid):
                         n_rows == len(grid) - 1 or \
                         n_cols == 0 or \
                         n_cols == len(row) - 1:
-                    return  # Stop!
+                    continue  # Skip cell
 
                 if landcells == 0:  # cell is one unit of island's length
                     length += cell
