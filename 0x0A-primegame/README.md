@@ -1,5 +1,5 @@
 # 0x0A. Prime Game
-`**Algorithm**`   `**Python**`
+**`Algorithm`**   **`Python`**
 <br>
 
 ## Description
@@ -7,7 +7,7 @@ In this project, I leveraged my understanding of *prime numbers*, *game theory*,
 The challenge involves determining the winner of a game based on strategic removal of prime numbers and their multiples from a set of consecutive integers.
 
 ## Task
-`**0. Prime Game**`
+**`0. Prime Game`**
 
 Maria and Ben are playing a game. Given a set of consecutive integers starting from `1` up to and including `n`, they take turns choosing a prime number from the set and removing that number and its multiples from the set. The player that cannot make a move loses the game.
 
@@ -39,7 +39,7 @@ Third round: `1`
 **Therefore Ben has the most wins (Winner)**
 
 
-## My Solution: [`0-prime_game.py`](https://github.com/Vulcanric/alx-interview/0x0A-primegame/blob/master/0-prime_game.py)
+## My Solution: [`0-prime_game.py`](https://github.com/Vulcanric/alx-interview/blob/main/0x0A-primegame/0-prime_game.py)
 Having read the examples above you can just skip doc string and comments explaining what the algorithm is doing.
 
 ```py
@@ -168,7 +168,7 @@ def isWinner(x, nums):
 
 ```
 
-## Test: [`0-main.py`](https://github.com/Vulcanric/alx-interview/0x0A-primegame/blob/master/0-prime_game.py)
+## Test: [`0-main.py`](https://github.com/Vulcanric/alx-interview/blob/main/0x0A-primegame/0-main.py)
 
 ```bash
 eric@ubuntu:~/0x0A-primegame$ cat 0-main.py
