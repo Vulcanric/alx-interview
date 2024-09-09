@@ -43,7 +43,7 @@ def sieve_of_eratosthenes(n):
 whose_turn = None
 
 
-def updateTurn(player):
+def nextTurn(player):
     """ Updates who is playing next
     """
     global whose_turn
@@ -91,6 +91,7 @@ def isWinner(x, nums):
 
     # For each round
     for i in range(x):
+
         global whose_turn
         whose_turn = "Maria"  # Maria always goes first
 
@@ -101,12 +102,14 @@ def isWinner(x, nums):
         primes_up_to_n = sieve_of_eratosthenes(nums[i])  # [1, 2, 3, 5, ...]
 
         primes_len, round_winner = len(primes_up_to_n), "Ben"
-        # Prime picking takes place
-        while primes_up_to_n[primes_len - 1] != 1:
-            out = primes_up_to_n.pop()  # <whose_turn> takes turn in picking
-            primes_len = len(primes_up_to_n)
-            round_winner = whose_turn
-            updateTurn("Ben") if whose_turn == "Maria" else updateTurn("Maria")
+
+        if len(primes_up_to_n) >= 1:
+            # Prime picking takes place
+            while primes_up_to_n[primes_len - 1] != 1:
+                out = primes_up_to_n.pop()  # <whose_turn> takes turn in pickng
+                primes_len = len(primes_up_to_n)
+                round_winner = whose_turn
+                nextTurn("Ben") if whose_turn == "Maria" else nextTurn("Maria")
 
         rounds_won[round_winner] += 1
 
